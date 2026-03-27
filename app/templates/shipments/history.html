@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Shipment History{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Shipment History</h1>
+    <p class="page-subtitle">Complete record of all processed shipments.</p>
+</div>
+
+<table class="data-table">
+    <thead>
+        <tr>
+            <th>Tracking #</th>
+            <th>Customer</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Weight</th>
+            <th>Status</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in shipments %}
+        <tr>
+            <td class="mono">{{ s.tracking_number }}</td>
+            <td>{{ s.customer.name }}</td>
+            <td>{{ s.origin }}</td>
+            <td>{{ s.destination }}</td>
+            <td>{{ s.weight_kg }} kg</td>
+            <td><span class="status-badge status-{{ s.status }}">{{ s.get_status_display }}</span></td>
+            <td>{{ s.created_at|date:"Y-m-d" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="empty-row">No shipments found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

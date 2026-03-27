@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Package Tracking{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Package Tracking</h1>
+    <p class="page-subtitle">Search by tracking number to view shipment status.</p>
+</div>
+
+<div class="search-card">
+    <form method="get" action="/tracking/">
+        {% csrf_token %}
+        <div class="search-row">
+            <input type="text" name="q" value="{{ query }}" placeholder="Enter tracking number (e.g. STM-2026-00001)" class="search-input">
+            <button type="submit" class="btn btn-primary">Track</button>
+        </div>
+    </form>
+</div>
+
+{% if result %}
+<div class="result-card">
+    <h2>Shipment Details</h2>
+    <div class="detail-grid">
+        <div class="detail-item">
+            <span class="detail-label">Tracking Number</span>
+            <span class="detail-value mono">{{ result.tracking_number }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Status</span>
+            <span class="detail-value"><span class="status-badge status-{{ result.status }}">{{ result.get_status_display }}</span></span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Customer</span>
+            <span class="detail-value">{{ result.customer.name }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Origin</span>
+            <span class="detail-value">{{ result.origin }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Destination</span>
+            <span class="detail-value">{{ result.destination }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Weight</span>
+            <span class="detail-value">{{ result.weight_kg }} kg</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Description</span>
+            <span class="detail-value">{{ result.description|default:"—" }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">Created</span>
+            <span class="detail-value">{{ result.created_at|date:"Y-m-d H:i" }}</span>
+        </div>
+        {% if result.estimated_delivery %}
+        <div class="detail-item">
+            <span class="detail-label">Est. Delivery</span>
+            <span class="detail-value">{{ result.estimated_delivery|date:"Y-m-d" }}</span>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% elif not_found %}
+<div class="alert alert-error">No shipment found for tracking number <strong>{{ query }}</strong>.</div>
+{% endif %}
+{% endblock %}

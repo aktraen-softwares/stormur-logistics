@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Stormur Logistics{% endblock %} | Tracking Platform</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="nav-logo">&#9878;</span>
+            <span class="nav-title">Stormur Logistics</span>
+        </div>
+        <div class="nav-links">
+            <a href="/dashboard/" class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}">Dashboard</a>
+            <a href="/tracking/" class="nav-link {% if request.path == '/tracking/' %}active{% endif %}">Tracking</a>
+            <a href="/history/" class="nav-link {% if request.path == '/history/' %}active{% endif %}">History</a>
+            <a href="/profile/" class="nav-link {% if request.path == '/profile/' %}active{% endif %}">Profile</a>
+            <a href="/admin/" class="nav-link {% if request.path == '/admin/' %}active{% endif %}">Admin</a>
+            <a href="/logout/" class="nav-link nav-logout">Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Stormur Logistics ehf. &mdash; Reykjav&iacute;k, Iceland</p>
+        <p class="footer-meta">Internal Tracking Platform v2.4.1</p>
+    </footer>
+</body>
+</html>

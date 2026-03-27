@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Dashboard</h1>
+    <p class="page-subtitle">Welcome back, {{ user.first_name|default:user.username }}.</p>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ stats.total }}</div>
+        <div class="stat-label">Total Shipments</div>
+    </div>
+    <div class="stat-card stat-transit">
+        <div class="stat-number">{{ stats.in_transit }}</div>
+        <div class="stat-label">In Transit</div>
+    </div>
+    <div class="stat-card stat-delivered">
+        <div class="stat-number">{{ stats.delivered }}</div>
+        <div class="stat-label">Delivered</div>
+    </div>
+    <div class="stat-card stat-pending">
+        <div class="stat-number">{{ stats.pending }}</div>
+        <div class="stat-label">Pending</div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Recent Shipments</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Tracking #</th>
+                <th>Customer</th>
+                <th>Origin</th>
+                <th>Destination</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in shipments %}
+            <tr>
+                <td class="mono">{{ s.tracking_number }}</td>
+                <td>{{ s.customer.name }}</td>
+                <td>{{ s.origin }}</td>
+                <td>{{ s.destination }}</td>
+                <td><span class="status-badge status-{{ s.status }}">{{ s.get_status_display }}</span></td>
+                <td>{{ s.created_at|date:"Y-m-d" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6" class="empty-row">No shipments found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
