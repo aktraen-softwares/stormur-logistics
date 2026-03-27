@@ -1,6 +1,6 @@
 # Stormur Logistics — Internal Tracking Platform
 
-Shipment tracking and logistics management platform for Stormur Logistics ehf.
+Shipment tracking and logistics management platform for Stormur Logistics AS.
 
 ## Quick Start
 
@@ -8,7 +8,7 @@ Shipment tracking and logistics management platform for Stormur Logistics ehf.
 docker compose up -d
 ```
 
-The application will be available at `http://track.stormur.is` (port 80).
+The application will be available at `http://track.stormur.com` (port 80).
 
 ## Architecture
 
@@ -27,9 +27,9 @@ The application will be available at `http://track.stormur.is` (port 80).
 
 | Email | Role |
 |-------|------|
-| `auditor@stormur.is` | User |
-| `admin@stormur.is` | Administrator |
-| `ops@stormur.is` | User |
+| `auditor@stormur.com` | User |
+| `admin@stormur.com` | Administrator |
+| `ops@stormur.com` | User |
 
 ## Features
 
